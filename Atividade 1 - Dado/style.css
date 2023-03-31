@@ -1,7 +1,8 @@
 *{
-    box-sizing: border-box;
     padding: 0;
     margin: 0;
+    color: black;
+    font-size: larger;
 }
 
 div{
@@ -10,32 +11,10 @@ div{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: antiquewhite;
-}
-
-label{
-    height: 2em;
-    padding: 1em;
-    font-size: 24px;
-    margin-bottom: 1em;
-}
-
-span{
-    font-size: 24px;
-    margin-bottom: 1em;
-}
-
-button{
-    font-size: 16px;
-    padding: 1em;
     background-color: bisque;
-    color: black;
-    border-radius: .5em;
-    transition: all .5s ease;
 }
 
-button:hover{
-    color: wheat;
-    background-color: blueviolet;
-    transform: scale(1.05);
+h1 {
+    color: black;
+    background-color: antiquewhite;
 }
