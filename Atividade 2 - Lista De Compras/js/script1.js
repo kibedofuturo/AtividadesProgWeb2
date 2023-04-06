@@ -12,6 +12,7 @@ class Product {
        }
 
        this.tableList()
+       this.denyProduct()
     }
 
     add(product) {
@@ -36,6 +37,17 @@ class Product {
             td_productName.innerHTML = this.arrayProduct[i].productName
             td_productPrice.innerHTML = this.arrayProduct[i].productPrice
             td_productQntt.innerHTML = this.arrayProduct[i].productQntt
+
+            td_id.classList.add('center')
+            td_productAction.classList.add('center')
+
+            const imgDelete = document.createElement('img')
+            imgDelete.src = 'img/botao-apagar.png'
+            imgDelete.setAttribute("onClick", `product.delete(${this.arrayProduct[i].productID})`)
+
+            td_productAction.appendChild(imgDelete)
+
+            console.log(this.arrayProduct)
         }
     }
 
@@ -51,7 +63,22 @@ class Product {
     }
 
     denyProduct() {
-        alert('Vamos deletar um produto')
+        document.getElementById('Product').value = ''
+        document.getElementById('Price').value = ''
+        document.getElementById('Qntt').value = ''
+    }
+
+    delete(id) {
+        if(confirm(`Você realmente deseja deletar o produco do ID ${id}?`) === true){
+            let tbody = document.getElementById('tbody')
+
+            for(let i = 0; i < this.arrayProduct.length; i++){
+                if(this.arrayProduct[i].productID == id) {
+                    this.arrayProduct.splice(i, 1)
+                    tbody.deleteRow(i)
+                }
+            }
+        }
     }
 
     checkFilds(product) {
