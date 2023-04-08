@@ -46,8 +46,6 @@ class Product {
             imgDelete.setAttribute("onClick", `product.delete(${this.arrayProduct[i].productID})`)
 
             td_productAction.appendChild(imgDelete)
-
-            console.log(this.arrayProduct)
         }
     }
 
@@ -69,7 +67,7 @@ class Product {
     }
 
     delete(id) {
-        if(confirm(`Você realmente deseja deletar o produco do ID ${id}?`) === true){
+        if(confirm(`Você realmente deseja deletar o produco do ID ${id}?`) == true){
             let tbody = document.getElementById('tbody')
 
             for(let i = 0; i < this.arrayProduct.length; i++){
@@ -78,6 +76,17 @@ class Product {
                     tbody.deleteRow(i)
                 }
             }
+        }
+    }
+
+    clearList() {
+        if(confirm('Você realmente deseja limpar a sua lista?') == true) {
+            let tbody = document.getElementById('tbody')
+            tbody.innerHTML = ''
+    
+            this.id = 1
+            this.arrayProduct = []
+            console.log(this.arrayProduct)   
         }
     }
 

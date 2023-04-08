@@ -81,3 +81,9 @@ table td img {
 .center {
     text-align: center;
 }
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
