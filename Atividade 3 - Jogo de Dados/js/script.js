@@ -1,10 +1,13 @@
 const btn1 = document.getElementById('btn1');
 const btn2 = document.getElementById('btn2');
-const btnReset = document.getElementById('btn-reset');
+const btnReset = document.getElementById('btnReset');
 const lbl1 = document.getElementById('lbl1');
 const lbl2 = document.getElementById('lbl2');
+const turnLbl = document.getElementById('turn');
 const maxTurns = 10;
 let currentTurn = 1;
+let player1Win = 0;
+let player2Win = 0;
 btn2.disabled = true;
 
 const roll = () => {
@@ -34,10 +37,12 @@ const gamePlay = (resultPlayer1, resultPlayer2) => {
     
     switch (true) {
         case (resultPlayer1 > resultPlayer2):
-            setTimeout(alert('O player 1 ganhou:'), 3000);
+            player1Win++
+            setTimeout(alert('O jogador 1 venceu'), 3000);
             break;
         case (resultPlayer1 < resultPlayer2):
-            setTimeout(alert('play 2 win'), 3000);
+            player2Win++
+            setTimeout(alert('O jogador 2 venceu'), 3000);
             break;
         case (resultPlayer1 === resultPlayer2):
             setTimeout(alert('empate'), 3000);
@@ -50,9 +55,20 @@ const gamePlay = (resultPlayer1, resultPlayer2) => {
     currentTurn++;
     
     if (currentTurn > maxTurns) {
-        btn1.disabled = true;
-        btn2.disabled = true;
-        btnReset.disabled = false;
+        resetGame()
+        switch (true) {
+            case (player1Win > player2Win):
+                alert("O jogador 1 foi o campeão")
+                break;
+            case (player1Win < player2Win):
+                alert("O jogador 2 foi o campeão")
+                break;
+            case (player1Win === player2Win):
+                alert("O jogo terminou tem empate")
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -63,16 +79,18 @@ const resetGame = () => {
     btn1.disabled = false;
     btn2.disabled = true;
     btnReset.disabled = true;
+    turnLbl.innerHTML = currentTurn;
 }
 
 btn1.onclick = () => {
     rollPlayer1();
-};
+}
 
-btn2.onclick = () => {
+btn2.onclick = () => { 
     let resultPlayer1 = rollPlayer1();
     let resultPlayer2 = rollPlayer2();
     gamePlay(resultPlayer1,resultPlayer2);
-};
+    turnLbl.innerHTML = currentTurn;
+}
 
 btnReset.onclick = resetGame;

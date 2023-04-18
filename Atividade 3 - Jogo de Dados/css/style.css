@@ -57,3 +57,26 @@ button {
 button:hover {
     background-color: rgb(219, 82, 58);
 }
+
+.reset {
+    margin-top: 10px;
+}
+
+.content {
+    margin: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+table th {
+    background-color: #e6e4e4;
+}
+
+table th, td {
+    text-align: left;
+    padding: 1px 5px;
+}
