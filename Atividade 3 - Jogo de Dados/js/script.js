@@ -21,6 +21,7 @@ const rollPlayer1 = () => {
     console.log(`jogador 1:  ${result}`);
     btn1.disabled = true;
     btn2.disabled = false;
+    btnReset.disabled = false;
     return result;
 }
 
