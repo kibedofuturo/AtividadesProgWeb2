@@ -76,6 +76,8 @@ const resetGame = () => {
     currentTurn = 1;
     lbl1.innerHTML = '';
     lbl2.innerHTML = '';
+    player1Win = 0;
+    player2Win = 0;
     btn1.disabled = false;
     btn2.disabled = true;
     btnReset.disabled = true;
