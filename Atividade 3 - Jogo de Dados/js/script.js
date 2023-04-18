@@ -21,7 +21,6 @@ const rollPlayer1 = () => {
     console.log(`jogador 1:  ${result}`);
     btn1.disabled = true;
     btn2.disabled = false;
-    btnReset.disabled = false;
     return result;
 }
 
@@ -81,7 +80,6 @@ const resetGame = () => {
     player2Win = 0;
     btn1.disabled = false;
     btn2.disabled = true;
-    btnReset.disabled = true;
     turnLbl.innerHTML = currentTurn;
 }
 
