@@ -9,13 +9,21 @@
     justify-content: center;
 }
 
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 header {
     background-color: tomato;
     padding: 10px;
     color: white;
     text-align: center;
     align-items: center;
-    margin-bottom: 5%;
+    position: fixed;
+    width: 100%;
 }
 
 .dice-container {
