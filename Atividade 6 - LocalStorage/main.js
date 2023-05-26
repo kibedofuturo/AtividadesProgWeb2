@@ -12,12 +12,21 @@ const turn = document.getElementById("turn");
 
 const maxRodadas = 10;
 let rodadas = JSON.parse(localStorage.getItem("rodadas")) || 0; // quantidade de rodadas já jogadas
-let dado1 = JSON.parse(localStorage.getItem("dado1")) || {}; // valor do dado do jogador 1
-let dado2 = JSON.parse(localStorage.getItem("dado2")) || {}; // valor do dado do jogador 2
+let dado1 = {}; // valor do dado do jogador 1
+let dado2 = {}; // valor do dado do jogador 2
 let score1 = JSON.parse(localStorage.getItem("score1")) || 0; // pontuação do primeiro jogador
-let score2 = JSON.parse(localStorage.getItem("score1")) || 0; // pontuação do segundo jogador
+let score2 = JSON.parse(localStorage.getItem("score2")) || 0; // pontuação do segundo jogador
 
-console.log(rodadas)
+turn.innerHTML = rodadas;
+resultadoFinalRodada.innerHTML = `${score1} x ${score2}`;
+
+if (rodadas === maxRodadas) {
+  localStorage.removeItem("rodadas");
+  localStorage.removeItem("score1");
+  localStorage.removeItem("score2");
+  turn.innerHTML = rodadas;
+  resultadoFinalRodada.innerHTML = `${score1} x ${score2}`;
+}
 
 const calcularRodada = () => {
   if (dado1.valor > dado2.valor) {
@@ -47,6 +56,7 @@ const calcularFimJogo = () => {
       resultadoFinal.innerHTML = "Resultado Final = Empate";
     }
   }
+  localStorage.setItem("rodadas", rodadas);
 };
 
 const configuracaoJogada = (bt1, bt2, dado, resultado) => {
@@ -65,45 +75,28 @@ const handleBtJogador1Click = () => {
   rodadas += 1;
   turn.innerHTML = rodadas;
   result2.innerHTML = "";
-  resultadoIntermediario.innerHTML = "";
-  localStorage.setItem("rodadas", rodadas);
-  localStorage.setItem("dado1", JSON.stringify(dado1));
 };
 
 const handleBtJogador2Click = () => {
   configuracaoJogada(btn2, btn1, dado2, result2);
   calcularRodada();
   calcularFimJogo();
-  localStorage.setItem("dado2", JSON.stringify(dado2));
 };
 
 const handleBtReiniciarClick = () => {
   rodadas = 0;
   score1 = 0;
   score2 = 0;
-  turn.innerHTML = "1";
+  turn.innerHTML = "0";
   result1.innerHTML = "";
   result2.innerHTML = "";
-  resultadoIntermediario.innerHTML = "";
+  resultadoIntermediario.innerHTML = "0 x 0";
   resultadoFinalRodada.innerHTML = "";
   resultadoFinal.innerHTML = "";
   btn1.disabled = false;
   localStorage.removeItem("rodadas");
   localStorage.removeItem("score1");
   localStorage.removeItem("score2");
-  localStorage.removeItem("dado1");
-  localStorage.removeItem("dado2");
-};
-
-window.onload = () => {
-  turn.innerHTML = rodadas;
-  result1.innerHTML = dado1.valor || "";
-  result2.innerHTML = dado2.valor || "";
-  resultadoIntermediario.innerHTML = "";
-  resultadoFinalRodada.innerHTML = `${score1} x ${score2}`;
-  resultadoFinal.innerHTML = "";
-
-  calcularFimJogo();
 };
 
 btn1.onclick = handleBtJogador1Click;
