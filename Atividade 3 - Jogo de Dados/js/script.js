@@ -1,97 +1,82 @@
-const btn1 = document.getElementById('btn1');
-const btn2 = document.getElementById('btn2');
-const btnReset = document.getElementById('btnReset');
-const lbl1 = document.getElementById('lbl1');
-const lbl2 = document.getElementById('lbl2');
-const turnLbl = document.getElementById('turn');
-const maxTurns = 10;
-let currentTurn = 1;
-let player1Win = 0;
-let player2Win = 0;
-btn2.disabled = true;
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+const btnReset = document.getElementById("btnReset");
+const result1 = document.getElementById("result1");
+const result2 = document.getElementById("result2");
+const resultadoIntermediario = document.getElementById(
+  "resultadoIntermediario"
+);
+const resultadoFinalRodada = document.getElementById("resultadoFinalRodada");
+const resultadoFinal = document.getElementById("resultadoFinal");
+const turn = document.getElementById("turn");
 
-const roll = () => {
-    let roll = Math.floor(Math.random() * 6) + 1;
-    return roll;
-}
+const maxRodadas = 10;
+let rodadas = 0; // quantidade de rodadas já jogadas
+let dado1 = {}; // valor do dado do jogador 1
+let dado2 = {}; // valor do dado do jogador 2
+let score1 = 0; // pontuação do primeiro jogador
+let score2 = 0; // pontuação do segundo jogador
 
-const rollPlayer1 = () => {
-    const result = roll();
-    lbl1.innerHTML = result;
-    console.log(`jogador 1:  ${result}`);
+const calcularRodada = () => {
+  if (dado1.valor > dado2.valor) {
+    score1 += 1;
+    resultadoIntermediario.innerHTML = "Jogador 1 ganhou";
+  } else if (dado2.valor > dado1.valor) {
+    score2 += 1;
+    resultadoIntermediario.innerHTML = "Jogador 2 ganhou";
+  } else {
+    resultadoIntermediario.innerHTML = "Empate";
+  }
+  resultadoFinalRodada.innerHTML = `${score1} x ${score2}`;
+};
+
+const calcularFimJogo = () => {
+  if (rodadas === maxRodadas) {
     btn1.disabled = true;
-    btn2.disabled = false;
-    return result;
-}
-
-const rollPlayer2 = () => {
-    const result = roll()
-    lbl2.innerHTML = result;
-    console.log(`jogador 2: ${result}`)
-    btn2.disabled = true;
-    btn1.disabled = false;
-    return result;
-}
-
-const gamePlay = (resultPlayer1, resultPlayer2) => {
-    
-    switch (true) {
-        case (resultPlayer1 > resultPlayer2):
-            player1Win++
-            setTimeout(alert('O jogador 1 venceu'), 3000);
-            break;
-        case (resultPlayer1 < resultPlayer2):
-            player2Win++
-            setTimeout(alert('O jogador 2 venceu'), 3000);
-            break;
-        case (resultPlayer1 === resultPlayer2):
-            setTimeout(alert('empate'), 3000);
-            break;
-        default:
-            // caso nenhuma das condições acima seja atendida
-            break;
+    if (score1 > score2) {
+      resultadoFinal.innerHTML = "Resultado Final = Jogador 1 ganhou";
+    } else if (score2 > score1) {
+      resultadoFinal.innerHTML = "Resultado Final = Jogador 2 ganhou";
+    } else {
+      resultadoFinal.innerHTML = "Resultado Final = Empate";
     }
-    
-    currentTurn++;
-    
-    if (currentTurn > maxTurns) {
-        resetGame()
-        switch (true) {
-            case (player1Win > player2Win):
-                alert("O jogador 1 foi o campeão")
-                break;
-            case (player1Win < player2Win):
-                alert("O jogador 2 foi o campeão")
-                break;
-            case (player1Win === player2Win):
-                alert("O jogo terminou tem empate")
-                break;
-            default:
-                break;
-        }
-    }
-}
+  }
+};
 
-const resetGame = () => {
-    currentTurn = 1;
-    lbl1.innerHTML = '';
-    lbl2.innerHTML = '';
-    player1Win = 0;
-    player2Win = 0;
-    btn1.disabled = false;
-    btn2.disabled = true;
-    turnLbl.innerHTML = currentTurn;
-}
+const configuracaoJogada = (bt1, bt2, dado, resultado) => {
+  dado.valor = Math.floor(Math.random() * 6) + 1;
+  bt1.disabled = true;
+  bt2.disabled = false;
+  resultado.innerHTML = dado.valor;
+};
 
-btn1.onclick = () => {
-    rollPlayer1();
-}
+const handleBtJogador1Click = () => {
+  configuracaoJogada(btn1, btn2, dado1, result1);
+  rodadas += 1;
+  turn.innerHTML = rodadas;
+  result2.innerHTML = "";
+  resultadoIntermediario.innerHTML = "";
+};
 
-btn2.onclick = () => { 
-    let resultPlayer1 = rollPlayer1();
-    let resultPlayer2 = rollPlayer2();
-    gamePlay(resultPlayer1,resultPlayer2);
-    turnLbl.innerHTML = currentTurn;
-}
+const handleBtJogador2Click = () => {
+  configuracaoJogada(btn2, btn1, dado2, result2);
+  calcularRodada();
+  calcularFimJogo();
+};
 
-btnReset.onclick = resetGame;
+const handleBtReiniciarClick = () => {
+  rodadas = 0;
+  score1 = 0;
+  score2 = 0;
+  turn.innerHTML = "1";
+  result1.innerHTML = "";
+  result2.innerHTML = "";
+  resultadoIntermediario.innerHTML = "";
+  resultadoFinalRodada.innerHTML = "";
+  resultadoFinal.innerHTML = "";
+  btn1.disabled = false;
+};
+
+btn1.onclick = handleBtJogador1Click;
+btn2.onclick = handleBtJogador2Click;
+btnReset.onclick = handleBtReiniciarClick;

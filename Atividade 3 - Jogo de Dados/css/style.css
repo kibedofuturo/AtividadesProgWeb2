@@ -15,17 +15,7 @@ header {
     color: white;
     text-align: center;
     align-items: center;
-}
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    max-width: 25%;
-    margin-left: 35%;
+    margin-bottom: 5%;
 }
 
 .dice-container {
@@ -47,15 +37,20 @@ header {
 button {
     border: 0;
     padding: 10px;
-    background-color: tomato;
-    color: white;
+    background-color: white;
+    color: black;
+    border: 2px solid tomato;
     border-radius: 3px;
     font-weight: bold;
     transition: all ease 0.3s;
 }
 
 button:hover {
-    background-color: rgb(219, 82, 58);
+    background-color: tomato; /* Green */
+}
+
+button:disabled {
+    background-color: tomato;
 }
 
 .reset {
